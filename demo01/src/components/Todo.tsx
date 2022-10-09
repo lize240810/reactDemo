@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 interface IProps {
     name: string
     completed: boolean
     id: string
     deleteTask: Function
+    editTask: Function
 }
 
 
@@ -15,10 +16,18 @@ export default function Todo(props: IProps) {
 
     function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
-        console.log(newName)
+        props.editTask(props.id, newName)
         setNewName("");
         setEditing(false);
     }
+
+    const editFieldRef = useRef<HTMLInputElement>(null)
+    const editButtonRef = useRef<HTMLButtonElement>(null)
+
+    useEffect(() => {
+        if (isEditing) editFieldRef.current?.focus();
+        else editButtonRef.current?.focus();
+    }, [isEditing]);
 
 
     const editingTemplate = (
@@ -27,7 +36,7 @@ export default function Todo(props: IProps) {
                 <label className="todo-label" htmlFor={props.id}>
                     New name for {props.name}
                 </label>
-                <input id={props.id} className="todo-text" type="text" value={newName}
+                <input id={props.id} className="todo-text" type="text" value={newName} ref={editFieldRef}
                        onChange={(e) => setNewName(e.target.value)}/>
             </div>
             <div className="btn-group">
@@ -52,7 +61,7 @@ export default function Todo(props: IProps) {
                 </label>
             </div>
             <div className="btn-group">
-                <button type="button" className="btn" onClick={() => setEditing(true)}>
+                <button type="button" className="btn" onClick={() => setEditing(true)} ref={editButtonRef}>
                     Edit <span className="visually-hidden">{props.name}</span>
                 </button>
                 <button type="button" className="btn btn__danger" onClick={() => props.deleteTask(props.id)}>

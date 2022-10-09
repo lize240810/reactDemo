@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 interface IProps {
     addTask: Function
@@ -17,6 +17,10 @@ export default function Form(props: IProps) {
         setName(e.target.value);
     }
 
+    const editFieldRef = useRef(null);
+    const editButtonRef = useRef(null);
+
+
 
     return (
         <form>
@@ -31,8 +35,10 @@ export default function Form(props: IProps) {
                    className="input input__lg"
                    name="text"
                    autoComplete="off"
+                   ref={editFieldRef}
                    onChange={handleChange}/>
-            <button type="submit" className="btn btn__primary btn__lg" onClick={handleSubmit}>Add</button>
+            <button type="submit" className="btn btn__primary btn__lg" ref={editButtonRef} onClick={handleSubmit}>Add
+            </button>
         </form>
     )
 }
