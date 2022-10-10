@@ -8,11 +8,27 @@ interface IProps {
     editTask: Function
 }
 
+/**
+ * Custom Hook
+ * */
+function usePrevious(value: any) {
+    const ref = useRef();
+    useEffect(() => {
+        ref.current = value;
+    });
+    return ref.current;
+}
+
 
 export default function Todo(props: IProps) {
 
     const [isEditing, setEditing] = useState(false);
     const [newName, setNewName] = useState('');
+
+    const wasEditing = usePrevious(isEditing);
+
+    const editFieldRef = useRef<HTMLInputElement>(null)
+    const editButtonRef = useRef<HTMLButtonElement>(null)
 
     function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
@@ -20,15 +36,17 @@ export default function Todo(props: IProps) {
         setNewName("");
         setEditing(false);
     }
-
-    const editFieldRef = useRef<HTMLInputElement>(null)
-    const editButtonRef = useRef<HTMLButtonElement>(null)
-
+    /**
+     * 会在组件渲染到屏幕之后执行
+     */
     useEffect(() => {
         if (isEditing) editFieldRef.current?.focus();
         else editButtonRef.current?.focus();
+        // 只希望在isEditing改变的时候触发
     }, [isEditing]);
 
+
+    /*view*/
 
     const editingTemplate = (
         <form className="stack-small">
