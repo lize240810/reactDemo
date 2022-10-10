@@ -20,8 +20,6 @@ export default function Form(props: IProps) {
     const editFieldRef = useRef(null);
     const editButtonRef = useRef(null);
 
-
-
     return (
         <form>
             <h2 className="label-wrapper">

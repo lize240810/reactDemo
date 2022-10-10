@@ -1,8 +1,11 @@
 import Todo from './components/Todo'
 import Form from "./components/Form";
+import A from "./components/bus-test/A";
+import B from "./components/bus-test/B";
 import FilterButton from "./components/FilterButton";
 import {useState} from "react";
 import {nanoid} from "nanoid";
+import useWatch from "./hook/useWatch";
 
 
 const DATA = [
@@ -48,6 +51,11 @@ function App() {
         <FilterButton key={name} name={name} isPressed={name === filter} setFilter={setFilter}/>
     ));
 
+    useWatch(filter, (value: any, oldValue: any) => {
+        console.log("value", value);
+        console.log("oldValue", oldValue)
+    }, {immediate: false})
+
     return (
         <div className="todoapp stack-large">
             <h1>TodoMatic</h1>
@@ -61,6 +69,8 @@ function App() {
             <ul role="list" className="todo-list stack-large stack-exception" aria-labelledby="list-heading">
                 {taskList}
             </ul>
+            <A></A>
+            <B></B>
         </div>
     )
 }
