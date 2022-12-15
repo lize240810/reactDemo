@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import './App.css'
 import Board from "./component/Board";
+import {Demo01} from './pages/deno01'
 
 
 function App() {
@@ -22,4 +23,4 @@ function App() {
   )
 }
 
-export default App
+export default Demo01
