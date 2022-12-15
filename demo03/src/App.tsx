@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import {useState} from 'react'
 import './App.css'
 import Board from "./component/Board";
 
 
-
 function App() {
-  const [count, setCount] = useState(0)
+    const history = [{
+        squares: Array(9).fill(null),
+    }]
+    const [IsNext, setIsNext] = useState(true)
 
   return (
       <div className="game">
