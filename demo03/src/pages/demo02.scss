@@ -1,0 +1,21 @@
+.box {
+  font-size: 50px;
+  font-weight: bold;
+
+  > span {
+    font-size: 30px;
+    color: rosybrown;
+  }
+
+  ul {
+    li {
+      line-height: 50px;
+      list-style-type: none;
+
+      &:first-child {
+        list-style-type: georgian;
+        border-bottom: 1px solid black;
+      }
+    }
+  }
+}

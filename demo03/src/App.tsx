@@ -2,6 +2,7 @@ import {useState} from 'react'
 import './App.css'
 import Board from "./component/Board";
 import {Demo01} from './pages/deno01'
+import Demo02 from './pages/demo02'
 
 
 function App() {
@@ -23,4 +24,4 @@ function App() {
   )
 }
 
-export default Demo01
+export default Demo02
