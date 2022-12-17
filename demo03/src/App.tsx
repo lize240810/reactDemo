@@ -2,7 +2,7 @@ import {useState} from 'react'
 import './App.css'
 import Board from "./component/Board";
 import {Demo01} from './pages/deno01'
-import Demo02 from './pages/demo02'
+import Demo03 from './pages/demo03'
 
 
 function App() {
@@ -24,4 +24,4 @@ function App() {
   )
 }
 
-export default Demo02
+export default Demo03
