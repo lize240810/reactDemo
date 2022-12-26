@@ -42,9 +42,9 @@ export default class Demo01 extends React.Component {
         {
             title: '操作',
             dataIndex: 'operation',
-            render: (_: any, record: { key: React.Key }) =>
+            render: (_: any, record: {}) =>
                 dataSource.length >= 1 ? (
-                    <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
+                    <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record)}>
                         <a>删除</a>
                     </Popconfirm>
                 ) : null,
@@ -70,8 +70,11 @@ export default class Demo01 extends React.Component {
         }, 1000)
     }
     // 删除
-    handleDelete = (key: React.Key) => {
-        console.log(key)
+    handleDelete = (record: any) => {
+        const _dataSource = this.state.dataSource.filter(item => item.key != record.key)
+        this.setState({
+            dataSource: _dataSource
+        })
     }
 
 
