@@ -1,6 +1,7 @@
 ﻿import type {RequestOptions} from '@@/plugin-request/request';
 import type {RequestConfig} from '@umijs/max';
 import {message, notification} from 'antd';
+import {useModel} from '@umijs/max';
 
 // 错误处理方案： 错误类型
 enum ErrorShowType {
@@ -88,9 +89,16 @@ export const errorConfig: RequestConfig = {
   // 请求拦截器
   requestInterceptors: [
     (config: RequestOptions) => {
-      // 拦截请求配置，进行个性化处理。
-      // const url = config?.url?.concat('?token = 123');
-      return {...config};
+      const url = config?.prefix.concat(config.url) || config?.url
+
+      if (sessionStorage.getItem("token")) {
+        const headers = {
+          'Authorization': `bearer ${sessionStorage.getItem("token")}`,
+        }
+        return {...config, url, headers};
+      }
+
+      return {...config, url};
     },
   ],
 

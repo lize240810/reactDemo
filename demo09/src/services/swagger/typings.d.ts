@@ -52,9 +52,9 @@ declare namespace API {
   };
 
   type loginUserParams = {
-    /** The user name for login */
+    /** The user name for index */
     username: string;
-    /** The password for login in clear text */
+    /** The password for index in clear text */
     password: string;
   };
 

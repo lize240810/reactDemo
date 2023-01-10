@@ -77,7 +77,7 @@ export namespace API {
     current: number;
   };
 
-  /** POST /api/login/outLogin */
+  /** POST /api/index/outLogin */
   export type POST_API_LOGIN_OUT_LOGIN_QUERY = {
     /** example:  123 */
     token: string;
@@ -92,7 +92,7 @@ export namespace API {
     success: boolean;
   };
 
-  /** POST /api/login/account */
+  /** POST /api/index/account */
   export type POST_API_LOGIN_ACCOUNT_QUERY = {
     /** example:  123 */
     token: string;
