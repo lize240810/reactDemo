@@ -46,6 +46,23 @@ export default [
     ],
   },
   {
+    path: '/restaurant',
+    name: 'restaurant',
+    icon: 'crown',
+    hideChildrenInMenu: true,
+    routes: [
+      {
+        path: '/restaurant',
+        component: './Restaurant/list',
+      },
+      {
+        path: '/restaurant/add',
+        component: './Restaurant/add',
+        name: 'add',
+      },
+    ],
+  },
+  {
     name: 'list.table-list',
     icon: 'table',
     path: '/list',

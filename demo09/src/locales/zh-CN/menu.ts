@@ -7,6 +7,8 @@ export default {
   'menu.login': '登录',
   'menu.register': '注册',
   'menu.register-result': '注册结果',
+  'menu.restaurant': '餐厅管理',
+  'menu.restaurant.add': '新增餐厅',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': '分析页',
   'menu.dashboard.monitor': '监控页',
