@@ -89,7 +89,7 @@ export const errorConfig: RequestConfig = {
   // 请求拦截器
   requestInterceptors: [
     (config: RequestOptions) => {
-      const url = config?.prefix.concat(config.url) || config?.url
+      const url = config?.prefix && config?.prefix.concat(config.url) || config?.url
 
       if (sessionStorage.getItem("token")) {
         const headers = {
