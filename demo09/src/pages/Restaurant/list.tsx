@@ -1,40 +1,37 @@
 import {addRule, removeRule, rule, updateRule} from '@/services/ant-design-pro/api';
-import {PlusOutlined} from '@ant-design/icons';
+import {PlusOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
 import type {ActionType, ProColumns, ProDescriptionsItemProps} from '@ant-design/pro-components';
 import {
   FooterToolbar,
-  ModalForm,
   PageContainer,
   ProDescriptions,
-  ProFormText,
-  ProFormTextArea,
   ProTable,
   ProFormSwitch
 } from '@ant-design/pro-components';
-import {FormattedMessage, useIntl} from '@umijs/max';
-import {Button, Drawer, Input, message} from 'antd';
+import {FormattedMessage, history} from '@umijs/max';
+import {Button, Drawer, message} from 'antd';
 import React, {useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 import {getRestaurants, Restaurant, QueryParams} from "@/services/api/restaurant";
 
+
 /**
  * @en-US Add node
  * @zh-CN 添加节点
- * @param fields
  */
-const handleAdd = async (fields: API.RuleListItem) => {
-  const hide = message.loading('正在添加');
-  try {
-    await addRule({...fields});
-    hide();
-    message.success('Added successfully');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Adding failed, please try again!');
-    return false;
-  }
+const handleAdd = async () => {
+  // const hide = message.loading('正在添加');
+  // try {
+  //   await addRule({...fields});
+  //   hide();
+  //   message.success('Added successfully');
+  //   return true;
+  // } catch (error) {
+  //   hide();
+  //   message.error('Adding failed, please try again!');
+  //   return false;
+  // }
 };
 
 /**
@@ -161,9 +158,10 @@ const TableList: React.FC = () => {
       title: "Action",
       render: (dom, entity) => {
         return [
-          <button>修改</button>,
-          <button>删除</button>,
-          <button>Manage dishes</button>
+          <Button type="primary" icon={<EditOutlined/>} style={{marginRight: 10}}/>,
+          <Button type="primary" icon={<DeleteOutlined/>} style={{marginRight: 10}} danger/>,
+          <Button type="primary" onClick={() => history.push({pathname: "/restaurant/dish/list"})}>Manage
+            dishes</Button>
         ];
       },
     },
@@ -171,7 +169,7 @@ const TableList: React.FC = () => {
 
   const newBtn = () => {
     return [
-      <Button type="primary" key="primary" onClick={() => console.log("新增")}>
+      <Button type="primary" key="primary" onClick={() => history.push('/restaurant/add')}>
         <PlusOutlined/><FormattedMessage id="pages.searchTable.new" defaultMessage="New"/>
       </Button>
     ]

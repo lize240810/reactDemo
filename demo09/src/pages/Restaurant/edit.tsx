@@ -309,5 +309,4 @@ const AdvancedForm: FC<Record<string, any>> = () => {
     </ProForm>
   );
 }
-
 export default AdvancedForm;

@@ -58,7 +58,27 @@ export default [
       {
         path: '/restaurant/add',
         component: './Restaurant/add',
-        name: 'add',
+        name: 'Add a New Restaurant',
+      },
+      {
+        path: '/restaurant/dish/list',
+        component: './Restaurant/Dish/list',
+        name: 'Manage Dish',
+      },
+      {
+        path: '/restaurant/dish/edit',
+        component: './Restaurant/Dish/edit',
+        name: 'Manage Dish',
+      },
+      {
+        path: '/restaurant/menu/list',
+        component: './Restaurant/Menu/list',
+        name: 'Manage Dish',
+      },
+      {
+        path: '/restaurant/menu/edit',
+        component: './Restaurant/Menu/edit',
+        name: 'Manage Dish',
       },
     ],
   },
