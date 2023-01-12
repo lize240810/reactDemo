@@ -9,30 +9,11 @@ import {
   ProFormSwitch
 } from '@ant-design/pro-components';
 import {FormattedMessage, history} from '@umijs/max';
-import {Button, Drawer, message} from 'antd';
+import {Button, Drawer, message, Popconfirm} from 'antd';
 import React, {useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 import {getRestaurants, Restaurant, QueryParams} from "@/services/api/restaurant";
-
-
-/**
- * @en-US Add node
- * @zh-CN 添加节点
- */
-const handleAdd = async () => {
-  // const hide = message.loading('正在添加');
-  // try {
-  //   await addRule({...fields});
-  //   hide();
-  //   message.success('Added successfully');
-  //   return true;
-  // } catch (error) {
-  //   hide();
-  //   message.error('Adding failed, please try again!');
-  //   return false;
-  // }
-};
 
 /**
  * @en-US Update node
@@ -110,6 +91,7 @@ const TableList: React.FC = () => {
       dataIndex: '_id',
       valueType: 'indexBorder',
       width: 48,
+      hideInSearch: true
     },
     {
       title: "Restaurant Name",
@@ -120,6 +102,7 @@ const TableList: React.FC = () => {
     {
       title: "Location",
       dataIndex: "address",
+      hideInSearch: true,
       width: 110,
       renderText: (address: Restaurant["address"], entity) => {
         return `${address.city},${address.state}`
@@ -128,41 +111,63 @@ const TableList: React.FC = () => {
     {
       title: "Publisher",
       dataIndex: '',
+      hideInSearch: true
     },
     {
       title: "Date",
       dataIndex: 'last_updated',
-      render: (dom, entity) => {
-        return (
-          <a onClick={() => {
-            setCurrentRow(entity);
-            setShowDetail(true)
-          }}>
-            {dom}
-          </a>
-        );
-      },
+      valueType: 'dateTime',
+      hideInSearch: true,
+      width: 150,
+    },
+    {
+      title: "Date",
+      dataIndex: 'last_updated',
+      valueType: 'dateRange',
+      hideInTable: true
     },
     {
       title: "Restaurant Admin",
       dataIndex: '',
+      hideInSearch: true
     },
     {
       title: "Status",
       dataIndex: "is_active",
+      valueType: 'switch',
+      hideInTable: true
+    },
+    {
+      title: "Status",
+      dataIndex: "is_active",
+      hideInSearch: true,
+      width: 100,
       renderText: (dom: boolean, entity) => {
         return <ProFormSwitch fieldProps={{defaultChecked: dom, onChange: () => statusChange(entity)}}/>
       }
     },
     {
       title: "Action",
-      render: (dom, entity) => {
-        return [
-          <Button type="primary" icon={<EditOutlined/>} style={{marginRight: 10}}/>,
-          <Button type="primary" icon={<DeleteOutlined/>} style={{marginRight: 10}} danger/>,
+      valueType: 'option',
+      hideInSearch: true,
+      width: 250,
+      render: (_, entity) => {
+        return <div>
+          <Button type="primary" icon={<EditOutlined/>} style={{marginRight: 10}} key={'edit'}/>
+          <Popconfirm title="delete" key={'delete'} onConfirm={async () => {
+            if (true) {
+              message.success("success" + entity._id)
+              actionRef.current?.reload()
+            } else {
+              message.error("error")
+            }
+          }}>
+            <Button type="primary" icon={<DeleteOutlined/>} style={{marginRight: 10}} danger/>
+          </Popconfirm>
+
           <Button type="primary" onClick={() => history.push({pathname: "/restaurant/dish/list"})}>Manage
             dishes</Button>
-        ];
+        </div>;
       },
     },
   ];
@@ -182,6 +187,7 @@ const TableList: React.FC = () => {
         toolBarRender={newBtn}
         request={getRestaurants}
         columns={columns}
+        pagination={{pageSize: 2}}
         rowSelection={{
           onChange: (_, selectedRows) => {
             debugger
