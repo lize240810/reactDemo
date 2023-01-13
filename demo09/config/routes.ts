@@ -61,7 +61,7 @@ export default [
         name: 'Add a New Restaurant',
       },
       {
-        path: '/restaurant/dish/list',
+        path: '/restaurant/dish/list/:id',
         component: './Restaurant/Dish/list',
         name: 'Manage Dish',
       },

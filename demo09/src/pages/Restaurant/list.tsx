@@ -1,19 +1,13 @@
-import {addRule, removeRule, rule, updateRule} from '@/services/ant-design-pro/api';
-import {PlusOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
+import {removeRule, updateRule} from '@/services/ant-design-pro/api';
+import {DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 import type {ActionType, ProColumns, ProDescriptionsItemProps} from '@ant-design/pro-components';
-import {
-  FooterToolbar,
-  PageContainer,
-  ProDescriptions,
-  ProTable,
-  ProFormSwitch
-} from '@ant-design/pro-components';
+import {FooterToolbar, PageContainer, ProDescriptions, ProFormSwitch, ProTable} from '@ant-design/pro-components';
 import {FormattedMessage, history} from '@umijs/max';
 import {Button, Drawer, message, Popconfirm} from 'antd';
 import React, {useRef, useState} from 'react';
 import type {FormValueType} from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
-import {getRestaurants, Restaurant, QueryParams} from "@/services/api/restaurant";
+import {getRestaurants, QueryParams, Restaurant} from "@/services/api/restaurant";
 
 /**
  * @en-US Update node
@@ -104,7 +98,7 @@ const TableList: React.FC = () => {
       dataIndex: "address",
       hideInSearch: true,
       width: 110,
-      renderText: (address: Restaurant["address"], entity) => {
+      renderText: (address: Restaurant["address"]) => {
         return `${address.city},${address.state}`
       }
     },
@@ -165,7 +159,7 @@ const TableList: React.FC = () => {
             <Button type="primary" icon={<DeleteOutlined/>} style={{marginRight: 10}} danger/>
           </Popconfirm>
 
-          <Button type="primary" onClick={() => history.push({pathname: "/restaurant/dish/list"})}>Manage
+          <Button type="primary" onClick={() => history.push({pathname: `/restaurant/dish/list/${entity.restaurant_id}`})}>Manage
             dishes</Button>
         </div>;
       },
@@ -187,13 +181,8 @@ const TableList: React.FC = () => {
         toolBarRender={newBtn}
         request={getRestaurants}
         columns={columns}
-        pagination={{pageSize: 2}}
-        rowSelection={{
-          onChange: (_, selectedRows) => {
-            debugger
-            setSelectedRows(selectedRows)
-          },
-        }}/>
+        // pagination={{pageSize: 2}}
+        rowSelection={{onChange: (_, selectedRows) => setSelectedRows(selectedRows)}}/>
 
       {selectedRowsState?.length > 0 && (
         <FooterToolbar extra={
@@ -261,9 +250,7 @@ const TableList: React.FC = () => {
             request={async () => ({
               data: currentRow || {},
             })}
-            params={{
-              id: currentRow?.name,
-            }}
+            params={{id: currentRow?.name}}
             columns={columns as ProDescriptionsItemProps<API.RuleListItem>[]}
           />
         )}
