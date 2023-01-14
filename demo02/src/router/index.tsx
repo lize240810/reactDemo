@@ -15,10 +15,10 @@ export default () => {
         <Routes>
             <Route path="/" element={<Navigate to="/home"/>}/>
             <Route path="home" element={<Home/>}></Route>
-            <Route path="/about" element={<About/>}>
-                <Route index element={<Create/>}/> {/* index 指定默认路由 */}
-                <Route path=":id" element={<Detail/>}/> {/* 路由通配符 */}
-                <Route path="update" element={<Update/>}/>
+            <Route path="/about" element={<Create/>}>
+                {/*<Route index element={<Create/>}/> /!* index 指定默认路由 *!/*/}
+                {/*<Route path=":id" element={<Detail/>}/> /!* 路由通配符 *!/*/}
+                {/*<Route path="update" element={<Update/>}/>*/}
             </Route>
         </Routes>
     )

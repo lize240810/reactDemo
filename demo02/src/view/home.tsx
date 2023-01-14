@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import reactLogo from '../assets/react.svg'
+import {Link} from "react-router-dom";
 
 export default function Home() {
     const [count, setCount] = useState(0)
@@ -7,9 +8,9 @@ export default function Home() {
     return (
         <div>
             <div>
-                <a href="https://vitejs.dev" target="_blank">
+                <Link to="/about">
                     <img src="/vite.svg" className="logo" alt="Vite logo"/>
-                </a>
+                </Link>
                 <a href="https://reactjs.org" target="_blank">
                     <img src={reactLogo} className="logo react" alt="React logo"/>
                 </a>
