@@ -1,20 +1,22 @@
-import React from "react";
-import Hello from './src/view/hello';
-import TestList from './src/view/testList';
-import SysInfo from './src/view/sysInfo';
-import TestStyle from './src/view/testStyle';
-import { ScrollView } from "react-native";
+import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import useCachedResources from './hooks/useCachedResources';
+import useColorScheme from './hooks/useColorScheme';
+import Navigation from './navigation';
 
-const App = () => {
-  return (
-    <ScrollView>
-      {/*<Hello />*/}
-      {/*<TestList/>*/}
-      {/*<SysInfo/>*/}
-      <TestStyle/>
-    </ScrollView>
-  );
-};
+export default function App() {
+  const isLoadingComplete = useCachedResources();
+  const colorScheme = useColorScheme();
 
-export default App;
+  if (!isLoadingComplete) {
+    return null;
+  } else {
+    return (
+      <SafeAreaProvider>
+        <Navigation colorScheme={colorScheme} />
+        <StatusBar />
+      </SafeAreaProvider>
+    );
+  }
+}

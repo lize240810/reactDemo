@@ -32,7 +32,7 @@ pnpm create vite demo05 --template react-ts
 - 组件样式
 
 ### demo04 
-- react Native 搭建
+Expo 搭建rn 项目
 
 ### demo05
 - 使用组件库 **antd**
