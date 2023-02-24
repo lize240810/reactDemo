@@ -4,7 +4,8 @@
   "info": {
     "singularName": "student",
     "pluralName": "students",
-    "displayName": "Student"
+    "displayName": "Student",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -25,11 +26,6 @@
     },
     "birthday": {
       "type": "date"
-    },
-    "createDate": {
-      "type": "datetime",
-      "unique": false,
-      "required": false
     },
     "sex": {
       "type": "boolean",

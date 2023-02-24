@@ -4,6 +4,7 @@ import { StudentService } from '@/services/api/student';
 import { Student } from "@/services/types";
 import { Button, Popconfirm, Switch, Tag } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import AddForm from "./components/add"
 
 
 export default () => {
@@ -57,7 +58,7 @@ export default () => {
             valueType: 'text',
             hideInSearch: true,
             renderText: (address: Student['address']) => {
-                return address.city
+                return address?.city || "-"
             }
         },
         {
@@ -92,5 +93,6 @@ export default () => {
     return <PageContainer>
         <ProTable<Student> rowKey="id" search={{ labelWidth: 120 }} request={StudentService.getAllStudent}
                            columns={columns}/>
+        <AddForm />
     </PageContainer>
 }
