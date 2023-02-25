@@ -1,5 +1,5 @@
 {
-  "name": "demo-11",
+  "name": "demo-12",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -10,18 +10,17 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-i18n": "4.6.1",
-    "@strapi/plugin-users-permissions": "4.6.1",
-    "@strapi/strapi": "4.6.1",
-    "better-sqlite3": "8.0.1",
-    "lodash": "^4.17.21",
-    "themes": "link:@strapi/design-system/themes"
+    "@strapi/plugin-documentation": "^4.6.2",
+    "@strapi/plugin-i18n": "4.6.2",
+    "@strapi/plugin-users-permissions": "4.6.2",
+    "@strapi/strapi": "4.6.2",
+    "better-sqlite3": "8.0.1"
   },
   "author": {
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "ba8d49a1-123c-43c6-96c0-4b0a85ad87b7"
+    "uuid": "4b61513f-94df-482b-abe3-af65091e0a74"
   },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",

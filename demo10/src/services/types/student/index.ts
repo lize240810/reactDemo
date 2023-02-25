@@ -5,15 +5,14 @@ export interface Student {
     mail: string
     phone: string
     address: {
-        street: string
-        suite: string
+        province: string
         city: string
-        zipcode: string
+        county: string
     },
     birthday: string
-    createDate: string
     createdAt: string
     updatedAt: string
     publishedAt: string
+    addr?: string[]
 }
 

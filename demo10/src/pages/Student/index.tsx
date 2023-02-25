@@ -1,13 +1,15 @@
-import { PageContainer, ProColumns, ProTable } from "@ant-design/pro-components";
-import React from "react";
-import { StudentService } from '@/services/api/student';
-import { Student } from "@/services/types";
-import { Button, Popconfirm, Switch, Tag } from "antd";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import AddForm from "./components/add"
+import {ActionType, PageContainer, ProColumns, ProTable} from "@ant-design/pro-components";
+import React, {useRef} from "react";
+import {StudentService} from '@/services/api/student';
+import {Student} from "@/services/types";
+import {Button, Popconfirm, Switch, Tag} from "antd";
+import {DeleteOutlined, EditOutlined, PlusOutlined} from "@ant-design/icons";
+import AddForm, {AddFormProps} from "./components/add"
 
 
 export default () => {
+    const addForm = useRef<AddFormProps>(null)
+    const actionRef = useRef<ActionType>();
 
     const columns: ProColumns[] = [
         {
@@ -77,7 +79,7 @@ export default () => {
             align: "center",
             render: (_, entity) => (
                 <div>
-                    <Button type="primary" icon={<EditOutlined/>} key="edit" style={{ marginRight: 30 }}/>
+                    <Button type="primary" icon={<EditOutlined/>} key="edit" style={{marginRight: 30}}/>
                     <Popconfirm title="delete" key="delete">
                         <Button type="primary" key="delete" icon={<DeleteOutlined/>} danger/>
                     </Popconfirm>
@@ -90,9 +92,26 @@ export default () => {
 
     }
 
+    async function onRefresh() {
+        console.log("刷新了")
+        await actionRef.current?.reload();
+    }
+
+    /**
+     * 新增按钮
+     */
+    const newBtn = () => {
+        return [
+            <Button type="primary" key="primary" onClick={addForm.current?.open}>
+                <PlusOutlined/>
+                创建学生
+            </Button>,
+        ];
+    };
+
     return <PageContainer>
-        <ProTable<Student> rowKey="id" search={{ labelWidth: 120 }} request={StudentService.getAllStudent}
-                           columns={columns}/>
-        <AddForm />
+        <ProTable<Student> rowKey="id" search={{labelWidth: 120}} request={StudentService.getAllStudent}
+                           columns={columns} toolBarRender={newBtn} actionRef={actionRef}/>
+        <AddForm ref={addForm} onRefresh={actionRef.current?.reload}/>
     </PageContainer>
 }
