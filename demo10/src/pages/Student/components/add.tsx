@@ -12,7 +12,7 @@ import {StudentService} from "@/services/api";
 import {Col, Row} from "antd";
 
 interface propsParams {
-    onRefresh: Function
+    onRefresh?: Function
 }
 
 export interface AddFormProps {
@@ -37,7 +37,7 @@ export default React.forwardRef<AddFormProps, propsParams>(({onRefresh}: propsPa
 
         const res = await StudentService.createStudent(data)
         if (res.ok) {
-            await onRefresh()
+            onRefresh && await onRefresh()
             await setModalOpen(false)
         }
     }
