@@ -1,43 +1,30 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+import {Pressable, StyleSheet, Text, View, GestureResponderEvent} from "react-native";
 
 export interface ButtonPropType {
     label?: string
-    onPress?: Function
+    onPress?: (e: GestureResponderEvent) => void;
+    icon?: any;
 }
 
-export default ({ label, onPress }: ButtonPropType) => {
-    return <View style={styles.buttonContainer}>
+export default ({label, onPress, icon}: ButtonPropType) => {
+    return <>
         <Pressable style={styles.button} onPress={onPress}>
+            {icon ? <MaterialIcons name={icon} size={24} color="#000"/> : null}
             <Text style={styles.buttonLabel}>{label}</Text>
         </Pressable>
-    </View>
+    </>
 }
 
 const styles = StyleSheet.create({
-    buttonContainer: {
-        width: 320,
-        height: 68,
-        marginHorizontal: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 3,
-        margin: 10,
-        backgroundColor: '#3a3a3a',
-        borderRadius: 60,
-    },
     button: {
-        borderRadius: 10,
-        width: '100%',
-        height: '100%',
-        alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'row',
-    },
-    buttonIcon: {
-        paddingRight: 8,
+        alignItems: 'center',
     },
     buttonLabel: {
-        color: '#fff',
+        color: '#000',
         fontSize: 16,
     }
 })

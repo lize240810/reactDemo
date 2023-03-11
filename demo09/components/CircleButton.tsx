@@ -1,11 +1,18 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import {GestureResponderEvent, Pressable, StyleSheet, View} from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import React from "react";
 
-export default function CircleButton({ onPress }) {
+
+export interface PropType {
+    onPress?: (e: GestureResponderEvent) => void;
+}
+
+
+export default function CircleButton({onPress}: PropType) {
     return (
         <View style={styles.circleButtonContainer}>
             <Pressable style={styles.circleButton} onPress={onPress}>
-                <MaterialIcons name="add" size={38} color="#25292e"/>
+                <MaterialIcons name="add" size={38} color="#fff"/>
             </Pressable>
         </View>
     );
@@ -15,9 +22,9 @@ const styles = StyleSheet.create({
     circleButtonContainer: {
         width: 84,
         height: 84,
-        marginHorizontal: 60,
+        marginHorizontal: 40,
         borderWidth: 4,
-        borderColor: '#ffd33d',
+        borderColor: 'rgba(255,145,27,0.75)',
         borderRadius: 42,
         padding: 3,
     },
@@ -26,6 +33,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 42,
-        backgroundColor: '#fff',
+        backgroundColor: '#303030',
     },
 });
