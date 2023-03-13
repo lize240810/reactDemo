@@ -5,15 +5,15 @@ const PlaceholderImage = require('../assets/BingWallpaper.jpg');
 
 export interface ImagePropType {
     image?: string | null | undefined,
-    pickedEmoji?: ImageSourcePropType
+    pickedEmoji?: string | null | undefined
 }
 
 export default ({image, pickedEmoji}: ImagePropType) => {
     const imageSource = image ? image : PlaceholderImage;
     return <View style={styles.imageContainer}>
-        <Image source={imageSource} style={styles.image}/>
+        <Image source={{ uri: imageSource }} style={styles.image}/>
         {pickedEmoji ?
-            <Image source={pickedEmoji} resizeMode="contain"
+            <Image source={{ uri: pickedEmoji }} resizeMode="contain"
                    style={{...styles.imageEmoji, width: 40, height: 40}}/> : null}
     </View>
 }

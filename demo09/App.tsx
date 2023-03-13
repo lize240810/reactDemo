@@ -12,7 +12,7 @@ import EmojiList from './components/EmojiList';
 
 export default function App() {
     const [selectedImage, setSelectedImage] = useState<string | null | undefined>(null);
-    const [pickedEmoji, setPickedEmoji] = useState<ImageSourcePropType>();
+    const [pickedEmoji, setPickedEmoji] = useState<string | null | undefined>();
 
     const [showAppOptions, setShowAppOptions] = useState(true);
     const [isModalVisible, setIsModalVisible] = useState(false);
