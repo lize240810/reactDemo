@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, FlatList, Image, Platform, Pressable, GestureResponderEvent,} from 'react-native';
+import {StyleSheet, FlatList, Image, Platform, Pressable} from 'react-native';
 
 export interface PropType {
     onSelect: Function;
