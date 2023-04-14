@@ -4,16 +4,16 @@ import React from "react";
 const PlaceholderImage = require('../assets/BingWallpaper.jpg');
 
 export interface ImagePropType {
-    image?: string | null | undefined,
-    pickedEmoji?: string | null | undefined
+    image?: ImageSourcePropType | null | undefined,
+    pickedEmoji?: ImageSourcePropType | null | undefined
 }
 
 export default ({image, pickedEmoji}: ImagePropType) => {
     const imageSource = image ? image : PlaceholderImage;
     return <View style={styles.imageContainer}>
-        <Image source={{ uri: imageSource }} style={styles.image}/>
+        <Image source={imageSource} style={styles.image}/>
         {pickedEmoji ?
-            <Image source={{ uri: pickedEmoji }} resizeMode="contain"
+            <Image source={pickedEmoji} resizeMode="contain"
                    style={{...styles.imageEmoji, width: 40, height: 40}}/> : null}
     </View>
 }

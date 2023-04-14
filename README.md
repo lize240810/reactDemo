@@ -53,6 +53,12 @@ Expo 搭建rn 项目
 emulator @Pixel_3a_API_31
 ```
 
+### demo09
+1. web端运行所需依赖包
+```shell
+npx expo install react-dom react-native-web @expo/webpack-config
+```
+
 ### demo10 AntdPro React 项目
 
 ### demo11 StrAPI后端项目[docs](https://getstrapi.cn/developer-docs/latest/getting-started/quick-start.html#_2-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%A1%E7%90%86%E5%91%98%E7%94%A8%E6%88%B7)
