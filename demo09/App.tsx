@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import Demo from "./views/Demo01"
+import Demo from "./views/Demo03"
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
@@ -8,8 +8,8 @@ import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
 
-    return <SafeAreaProvider>
+    return <View style={{flex: 1}}>
         <Demo/>
         <StatusBar style="light" />
-    </SafeAreaProvider>
+    </View>
 }
