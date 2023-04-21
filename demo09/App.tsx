@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import Demo from "./views/Demo03"
+import Demo from "./views/Demo05"
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 

@@ -6,6 +6,7 @@ import FilterButton from "./components/FilterButton";
 import {useState} from "react";
 import {nanoid} from "nanoid";
 import useWatch from "./hook/useWatch";
+import demo01 from "./Demo01";
 
 
 const DATA = [
@@ -75,4 +76,4 @@ function App() {
     )
 }
 
-export default App
+export default demo01
