@@ -1,6 +1,7 @@
-const {Sequelize, DataTypes, Model} = require('sequelize');
+const {DataTypes, Model} = require('sequelize');
 
 const db = require("./db")
+const User = require("./user");
 
 const News = db.define('News', {
 	id: {
@@ -14,7 +15,9 @@ const News = db.define('News', {
 	},
 	content: DataTypes.STRING,
 	images: DataTypes.STRING,
-	author: DataTypes.STRING,
+	authorId: {
+		type: DataTypes.UUID
+	},
 	heat: {
 		type: DataTypes.INTEGER,
 		defaultValue: 0
@@ -31,7 +34,7 @@ const News = db.define('News', {
 		type: DataTypes.BOOLEAN,
 		defaultValue: false
 	},
-	PublicTime: DataTypes.DATE
+	publicTime: DataTypes.DATE
 }, {
 	timestamps: true
 });
