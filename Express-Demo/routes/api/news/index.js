@@ -30,10 +30,13 @@ router.get('/', async function (req, res) {
 
 	try {
 		// 执行查询操作
-		const news = await News.findAll({offset, limit, where, order: [['createdAt', 'DESC']], include})
-
-		// 查询总记录数
-		const count = await News.count({where, include});
+		const {count, rows} = await News.findAndCountAll({
+			offset,
+			limit,
+			where,
+			order: [['createdAt', 'DESC']],
+			include
+		})
 
 		// 计算总页数和当前页码
 		const totalPages = Math.ceil(count / limit);
@@ -41,7 +44,7 @@ router.get('/', async function (req, res) {
 
 		const pagination = {total: count, currentPage, pageSize: limit, totalPages}
 
-		res.json({data: news, pagination});
+		res.json({data: rows, pagination});
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({
