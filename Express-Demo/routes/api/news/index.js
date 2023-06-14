@@ -1,8 +1,9 @@
 const express = require('express');
 const News = require('../../../models/news');
 const {Op} = require("sequelize");
-const {authenticateJWT} = require("../../../utils/token");
+const {authenticateJWT, authenticateUser} = require("../../../utils/token");
 const User = require("../../../models/user");
+const Favorite = require('../../../models/favorite');
 
 const router = express.Router();
 
@@ -13,12 +14,16 @@ router.get('/', async function (req, res) {
 
 	// 构造查询条件
 	const where = {};
-	const include = {
+	const include = [{
 		model: User, as: 'author', attributes: [['username', 'authorName']],
 		where: {
-			isActive: false
+			isActive: true
 		}
-	}
+	}, {
+		model: User,
+		attributes: ['id'],
+		through: {attributes: ['id']},
+	}]
 
 	if (title) {
 		where.title = {
@@ -55,21 +60,47 @@ router.get('/', async function (req, res) {
 	}
 })
 
-router.get('/:id', async function (req, res) {
+router.get('/:id', authenticateUser, async function (req, res) {
 	try {
-		const dbRes = await News.findByPk(req.params?.id);
-		await dbRes.increment('views', {
-			by: 1
-		})
+		const newData = await News.findByPk(req.params?.id);
+		await newData.increment('views', {by: 1})
+		const author = await newData.getAuthor()
+		const total = await newData.countUsers()
+		const isLike = await newData.hasUsers(req.user.id)
 		res.json({
-			data: dbRes
+			data: {
+				...newData.toJSON(), author, total,
+				isLike
+			}
 		});
 	} catch (e) {
+		console.error(e)
 		res.status(400).json({
 			message: "网络出现异常"
 		});
 	}
 })
+
+router.post('/:id/favorite', authenticateJWT, async function (req, res) {
+	try {
+		const [favorite, status] = await Favorite.findOrCreate({
+			where: {
+				userId: req.user.id,
+				newsId: req.params.id,
+			}
+		})
+		// 取消点赞
+		if (!status) favorite.destroy()
+		return res.json({
+			data: {
+				isFavorite: status
+			},
+			message: `${status ? '成功' : '取消'}点赞`
+		})
+	} catch (e) {
+		res.send(e)
+	}
+});
 
 router.post('/', authenticateJWT, async function (req, res) {
 	if (!req.body?.title) {

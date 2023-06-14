@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
+const User = require("../models/user");
 
 const secret = 'express-download'
+
 
 /**
  * 定义中间件函数，生成 JWT
@@ -30,8 +32,15 @@ const authenticateJWT = (req, res, next) => {
 	}
 
 	try {
-		req.user = jwt.verify(token, secret);
-		next()
+		const _user = jwt.verify(token, secret);
+		User.findByPk(_user.id).then(user => {
+			if (user) {
+				req.user = user
+				next()
+			} else {
+				res.status(401).json({message: '身份验证失败'})
+			}
+		})
 	} catch (err) {
 		res.status(401).json({message: '身份验证失败'})
 	}
