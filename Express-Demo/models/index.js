@@ -4,14 +4,14 @@ const News = require("./news")
 const Favorite = require("./favorite")
 
 async function initDB() {
-	await db.sync({alter: false});
-	// 一对一
-	User.hasMany(News, {foreignKey: 'id', as: 'news'});
-	News.belongsTo(User, {foreignKey: 'authorId', as: 'author'});
+    await Favorite.sync({alter: false});
+    // 一对一
+    User.hasMany(News, {foreignKey: 'id', as: 'news'});
+    News.belongsTo(User, {foreignKey: 'authorId', as: 'author'});
 
-	// 多对多
-	News.belongsToMany(User, {through: Favorite});
-	User.belongsToMany(News, {through: Favorite});
+    // 多对多
+    News.belongsToMany(User, {through: Favorite});
+    User.belongsToMany(News, {through: Favorite});
 }
 
 initDB().then()
